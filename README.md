@@ -9,32 +9,36 @@
 
 ## Acknowledgments
 
-A huge thanks to:
-
-- **nea89** for the [mod guide](https://moddev.nea.moe)
-- **Ninjune** for inspiration
-- **Moulberry and nea89** for the [MoulConfig](https://notenoughupdates.org/MoulConfig/) library
-- **hannibal2 and everyone else** working at the [Skyhanni](https://github.com/hannibal002/SkyHanni) mod, which provided many ideas and the [Example Mod](https://github.com/hannibal002/Example-1.8.9-Mod)
+**Huge thanks to:** nea89, Ninjune, Moulberry, hannibal2 and the SkyHanni team. Full credits and acknowledgments can be found [here](CREDITS.md).
 
 ---
 
-
 ## Installation
 
-1. Download the latest version from the [releases](https://github.com/ChindeaYTB/SkyblockCollectionTracker/releases) page
-2. Add the mod to your mods folder (`.minecraft/mods`)
-3. Run Minecraft with the [Forge](https://files.minecraftforge.net/net/minecraftforge/forge/index_1.8.9.html) installation
-4. Use `/sct help` to get started
+1. Download the latest version from [here](https://github.com/ChindeaYTB/SkyblockCollectionTracker/releases). 
+2. Add the mod to your mods folder (`.minecraft/mods`).
+3. Run Minecraft with the [Forge](https://files.minecraftforge.net/net/minecraftforge/forge/index_1.8.9.html) installation.
+4. Use `/sct help` to get started.
 
 ---
 
 ## Features
-
-- **Track your skyblock collections**
+- **MoulConfig GUI**
+  - Configure your tracking settings through the in-game GUI, accessible via `/sct`.
+     
+- **Customizable overlay** 
+  - Enable color-coded text for each individual collection.
+  - Configure what stats you want to see displayed in the Overlay category.
+    
+- **Tracking mechanics**
   - Use `/sct track <collection>` to start tracking a collection.
-- **Overlay Overview**
-  - **Overlay Design**: Inspired by Ninjune’s [Coleweight mod](https://www.chattriggers.com/modules/v/Coleweight)
-  - You can change what stats you can see in the Overlay Configuration
-  - You can move the overlay in the GUI Configuration
+  - Need a break? Simply pause tracking with `/sct pause` and resume anytime with `/sct resume`.
+
+- **Choose your pricing**
+  - You can either use the NPC prices (primarily designed for ironman players) or Bazaar prices from the Bazaar category. (WIP)
+
+- **Auto Updater**
+  - Implements [modrinthautoupdater](https://github.com/ChindeaYTB/modrinthautoupdater), a similar library to [libautoupdate](https://github.com/nea89o/libautoupdate).
+  - The mod updates after Minecraft exits.
 ---
 

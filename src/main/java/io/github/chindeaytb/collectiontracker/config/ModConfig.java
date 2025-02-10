@@ -3,7 +3,6 @@ package io.github.chindeaytb.collectiontracker.config;
 import com.google.gson.annotations.Expose;
 import io.github.chindeaytb.collectiontracker.ModInitialization;
 import io.github.chindeaytb.collectiontracker.config.categories.About;
-import io.github.chindeaytb.collectiontracker.config.categories.Bazaar;
 import io.github.chindeaytb.collectiontracker.config.categories.GUIConfig;
 import io.github.chindeaytb.collectiontracker.config.categories.Overlay;
 import io.github.moulberry.moulconfig.Config;
@@ -21,8 +20,6 @@ public class ModConfig extends Config {
     @Expose
     @Category(name = "Overlay", desc = "Overlay settings")
     public Overlay overlay = new Overlay();
-    @Category(name = "Baazar", desc = "Toggle bazaar prices")
-    public Bazaar bazaar = new Bazaar();
 
     @Override
     public String getTitle() {

@@ -1,8 +1,8 @@
 package io.github.chindeaytb.collectiontracker.config.categories;
 
+import io.github.chindeaytb.collectiontracker.gui.GuiManager;
 import io.github.moulberry.moulconfig.annotations.ConfigEditorButton;
 import io.github.moulberry.moulconfig.annotations.ConfigOption;
-import io.github.chindeaytb.collectiontracker.gui.GuiManager;
 
 @SuppressWarnings("unused")
 public class GUIConfig {

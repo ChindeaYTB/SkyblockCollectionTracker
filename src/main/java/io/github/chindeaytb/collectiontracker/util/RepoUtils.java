@@ -37,28 +37,35 @@ public class RepoUtils {
                 for (JsonElement element : releases) {
                     JsonObject release = element.getAsJsonObject();
                     boolean isPreRelease = release.get("prerelease").getAsBoolean();
+                    String versionTag = release.get("tag_name").getAsString();
 
-                    if (!isPreRelease && (latestStableVersion == null || isNewerVersion(release, latestStableVersion))) {
-                        latestStableVersion = release.get("tag_name").getAsString();
+                    if (!isPreRelease && (latestStableVersion == null || isNewerVersion(versionTag, latestStableVersion))) {
+                        latestStableVersion = versionTag;
                     }
-                    if (isPreRelease && (latestBetaVersion == null || isNewerVersion(release, latestBetaVersion))) {
-                        latestBetaVersion = release.get("tag_name").getAsString();
+                    if (isPreRelease && (latestBetaVersion == null || isNewerVersion(versionTag, latestBetaVersion))) {
+                        latestBetaVersion = versionTag;
                     }
                 }
 
                 if (update == 1 && latestStableVersion != null) {
                     latestVersion = latestStableVersion;
-                } else if (update == 2 && latestBetaVersion != null) {
-                    latestVersion = latestBetaVersion;
-                } else if (update == 2 && latestStableVersion != null) {
-                    latestVersion = latestStableVersion;
+                } else if (update == 2) {
+                    if (latestStableVersion != null && latestBetaVersion != null) {
+
+                        latestVersion = isNewerVersion(latestStableVersion, latestBetaVersion) ? latestStableVersion : latestBetaVersion;
+                    } else if (latestStableVersion != null) {
+                        latestVersion = latestStableVersion;
+                    } else if (latestBetaVersion != null) {
+                        latestVersion = latestBetaVersion;
+                    } else {
+                        latestVersion = null;
+                    }
                 } else {
                     latestVersion = null;
                 }
 
                 if (latestVersion != null) {
                     MODRINTH_URL += latestVersion;
-                    logger.info("The latest version of the mod is {}", latestVersion);
                 }
             } else {
                 logger.error("Failed to check for updates. HTTP Response Code: {}", connection.getResponseCode());
@@ -83,8 +90,42 @@ public class RepoUtils {
         return jsonElement.getAsJsonArray();
     }
 
-    public static boolean isNewerVersion(JsonObject candidate, String currentVersion) {
-        String candidateTag = candidate.get("tag_name").getAsString();
-        return candidateTag.compareTo(currentVersion) > 0;
+    public static boolean isNewerVersion(String candidateVersion, String currentVersion) {
+        String candidateClean = candidateVersion.replace("v", "");
+        String currentClean = currentVersion.replace("v", "");
+
+        String[] candidateParts = candidateClean.split("-beta");
+        String[] currentParts = currentClean.split("-beta");
+
+        String candidateMain = candidateParts[0];
+        String currentMain = currentParts[0];
+
+        Integer candidateBeta = candidateParts.length > 1 ? Integer.parseInt(candidateParts[1]) : null;
+        Integer currentBeta = currentParts.length > 1 ? Integer.parseInt(currentParts[1]) : null;
+
+        String[] candidateNums = candidateMain.split("\\.");
+        String[] currentNums = currentMain.split("\\.");
+
+        int length = Math.max(candidateNums.length, currentNums.length);
+        for (int i = 0; i < length; i++) {
+            int candidateNum = i < candidateNums.length ? Integer.parseInt(candidateNums[i]) : 0;
+            int currentNum = i < currentNums.length ? Integer.parseInt(currentNums[i]) : 0;
+            if (candidateNum > currentNum) {
+                return true;
+            } else if (candidateNum < currentNum) {
+                return false;
+            }
+        }
+
+        if (candidateBeta == null && currentBeta != null) {
+            return true;
+        } else if (candidateBeta != null && currentBeta == null) {
+            return false;
+        } else if (candidateBeta != null && currentBeta != null) {
+            return candidateBeta > currentBeta;
+        }
+
+        return false;
     }
+
 }

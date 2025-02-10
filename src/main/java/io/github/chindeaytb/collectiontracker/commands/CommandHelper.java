@@ -1,5 +1,6 @@
 package io.github.chindeaytb.collectiontracker.commands;
 
+import io.github.chindeaytb.collectiontracker.util.ChatUtils;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.util.ChatComponentText;
@@ -21,7 +22,7 @@ public class CommandHelper extends CommandBase {
         if (args[0].equalsIgnoreCase("help")) {
             sendHelpMessage(sender);
         } else {
-            sender.addChatMessage(new ChatComponentText("Unknown command. Use /sct help."));
+            ChatUtils.INSTANCE.sendMessage("Unknown command. Use /sct help.");
         }
     }
 

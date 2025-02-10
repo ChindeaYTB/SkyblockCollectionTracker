@@ -26,4 +26,7 @@ public class About {
             values = {"None", "Full releases", "Beta releases"}
     )
     public int update = 0;
+
+    @Expose
+    public boolean hasCheckedUpdate = false;
 }

@@ -11,7 +11,7 @@ import org.apache.logging.log4j.Logger;
 import java.io.StringReader;
 
 import static io.github.chindeaytb.collectiontracker.commands.StartTracker.collection;
-import static io.github.chindeaytb.collectiontracker.gui.TextUtils.updateStats;
+import static io.github.chindeaytb.collectiontracker.util.TextUtils.updateStats;
 import static io.github.chindeaytb.collectiontracker.tracker.TrackingHandlerClass.getUptimeInSeconds;
 
 public class TrackCollection {

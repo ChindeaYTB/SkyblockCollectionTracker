@@ -110,6 +110,6 @@ public class ValidCollectionsManager {
     }
 
     public static boolean isValidCollection(String collectionName) {
-        return validCollections.get(collectionName);
+        return validCollections.getOrDefault(collectionName, false);
     }
 }

@@ -25,7 +25,7 @@ class ModInitialization {
         loadModule(this)
         ModulesLoader.modules.forEach { loadModule(it) }
 
-        logger.info("Skyblock Collections Tracker pre-initialization complete.")
+        logger.info("Skyblock Collection Tracker pre-initialization complete.")
     }
 
     @Mod.EventHandler
@@ -45,7 +45,7 @@ class ModInitialization {
         val guiMenu = GuiMenu()
         ClientCommandHandler.instance.registerCommand(SCT_Commands(commandHelper, startTracker, stopTracker, pauseTracker, resumeTracker, guiMenu))
 
-        logger.info("SkyblockCollectionsTracker initialized.")
+        logger.info("SkyblockCollectionTracker initialized.")
 
         loadedClasses.clear()
     }

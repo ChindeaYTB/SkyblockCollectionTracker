@@ -3,13 +3,14 @@ package io.github.chindeaytb.collectiontracker.commands;
 import io.github.chindeaytb.collectiontracker.api.serverapi.ServerStatus;
 import io.github.chindeaytb.collectiontracker.collections.ValidCollectionsManager;
 import io.github.chindeaytb.collectiontracker.tracker.TrackingHandlerClass;
+import io.github.chindeaytb.collectiontracker.util.ChatUtils;
 import io.github.chindeaytb.collectiontracker.util.HypixelUtils;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
-import net.minecraft.util.ChatComponentText;
 
 import static io.github.chindeaytb.collectiontracker.tracker.TrackingHandlerClass.isPaused;
 import static io.github.chindeaytb.collectiontracker.tracker.TrackingHandlerClass.isTracking;
+import static io.github.chindeaytb.collectiontracker.util.TextUtils.formatCollectionName;
 
 public class StartTracker extends CommandBase {
 
@@ -29,18 +30,18 @@ public class StartTracker extends CommandBase {
     public void processCommand(ICommandSender sender, String[] args) {
         try {
             if (!HypixelUtils.isOnSkyblock()) {
-                sender.addChatMessage(new ChatComponentText("§cYou must be on Hypixel Skyblock to use this command!"));
+                ChatUtils.INSTANCE.sendMessage("§cYou must be on Hypixel Skyblock to use this command!");
                 return;
             }
             try {
                 if (!ServerStatus.checkServer()) {
-                    sender.addChatMessage(new ChatComponentText("§cYou can't use any commands for this mod at the moment."));
+                    ChatUtils.INSTANCE.sendMessage("§cYou can't use any commands for this mod at the moment.");
                     return;
                 }
 
                 if (args[0].equalsIgnoreCase("track")) {
                     if (args.length < 2) {
-                        sender.addChatMessage(new ChatComponentText("Use: /sct track <collection>"));
+                        ChatUtils.INSTANCE.sendMessage("Use: /sct track <collection>");
                         return;
                     }
 
@@ -55,16 +56,16 @@ public class StartTracker extends CommandBase {
                     if (!isTracking && !isPaused) {
                         collection = keyBuilder.toString().trim().toLowerCase();
                         if (!ValidCollectionsManager.isValidCollection(collection)) {
-                            sender.addChatMessage(new ChatComponentText("§4Invalid collection!"));
+                            ChatUtils.INSTANCE.sendMessage("§4" + formatCollectionName(collection) + " collection is not supported!");
                         } else {
                             TrackingHandlerClass.startTracking(sender);
                         }
                     } else {
-                        sender.addChatMessage(new ChatComponentText("§cAlready tracking a collection."));
+                        ChatUtils.INSTANCE.sendMessage("§cAlready tracking a collection.");
                     }
                 }
             } catch (Exception e) {
-                sender.addChatMessage(new ChatComponentText("§cAn error occurred while processing the command."));
+                ChatUtils.INSTANCE.sendMessage("§cAn error occurred while processing the command.");
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
